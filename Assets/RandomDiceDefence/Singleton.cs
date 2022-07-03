@@ -15,9 +15,23 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 GameObject goInstance = new GameObject();
                 goInstance.name = typeof(T).Name;
                 _Instance =  goInstance.AddComponent<T>();
+                
+                if(_Instance is Singleton<T> singleton)
+                {
+                    singleton.Init();
+                }
             }
-
             return _Instance;
         }
+    }
+
+    virtual protected void Awake()
+    {
+        _Instance = this as T;
+    }
+
+    virtual public void Init()
+    {
+
     }
 }

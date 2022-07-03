@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 // 생명 주기 : 로그인시에 생성
 // 로그아웃 시에 해제 됨.
@@ -17,26 +18,28 @@ using UnityEngine;
 // 생명주기가 언제 시작? 전투 진입 전,
 
 // const
-public class DiceData
+public abstract class DiceData
 {
-    public List<int> InitialBuffID = new List<int>(); // 태극 같은 것들, 태엽같은 애들
+    public List<int> InitialBuffIDs = new List<int>(); // 태극 같은 것들, 태엽같은 애들
     public float PointForSummon;
     public int BulletID;                              // 어떤 총알을 쏠 것인지
 
+    abstract public RuntimeDiceData MakeRuntimeData();
 }
 
-// current data
-
-public class CurrentDiceData
+// 실제 런타임시에 필요한 데이터 구성
+public abstract class RuntimeDiceData
 {
+    abstract public void Start();
+    abstract public void Update();
+    abstract public void OnDie();
+
 
 }
 
-public class BattleUserData
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/DiceDatas", order = 1)]
+public class DiceDatas : SerializedScriptableObject
 {
     [SerializeField]
-    int UserID;
-
-    [SerializeField]
-    int PointForSummon;
+    List<DiceData> diceDatas = new List<DiceData>();
 }
