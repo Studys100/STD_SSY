@@ -22,6 +22,10 @@ public class GameScene : MonoBehaviour
     public ReactiveProperty<State> stateRP = new ReactiveProperty<State>(State.RequireInit);
     public static GameScene CurrentScene;
 
+    [SerializeField]
+    MonsterPathes monsterPath;
+    public MonsterPathes GetMonsterPath => monsterPath;
+
     private void Awake()
     {
         CurrentScene = this;

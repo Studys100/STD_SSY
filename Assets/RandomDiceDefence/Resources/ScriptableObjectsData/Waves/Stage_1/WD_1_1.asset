@@ -17,9 +17,13 @@ MonoBehaviour:
     duration: 5
     spawnCount: 1
     cooltimeForSpawn: 0.3
+    monsterType: 0
     MonsterUID: 0
+    BossUID: 0
   - startTime: 4
     duration: 0
     spawnCount: 1
     cooltimeForSpawn: 100
+    monsterType: 0
     MonsterUID: 1
+    BossUID: 0

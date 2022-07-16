@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ a~b 초까지
 어떤 몬스터를 생성할 지
  */
 
+public enum MonsterType
+{
+    NormalMonster,
+    BossMonster,
+}
+
 [Serializable]
 public class WaveData
 {
@@ -20,7 +27,14 @@ public class WaveData
     public int spawnCount;
     public float cooltimeForSpawn;
 
+    public MonsterType monsterType;
+    public bool IsBoss => monsterType == MonsterType.BossMonster;
+
+    [HideIf(nameof(IsBoss))]
     public int MonsterUID;
+
+    [ShowIf(nameof(IsBoss))]
+    public int BossUID;
 
     // start랑 endtime 동안 소환을 해야함.
     
@@ -28,15 +42,20 @@ public class WaveData
     {
         // start 타임동안 쉬시구!
         yield return new WaitForSeconds(startTime);
-        var parent = GameScene.CurrentScene.transform;
+        var currentScene = GameScene.CurrentScene;
+        var parent = currentScene.transform;
 
         // start time 뒤에 여기와서!
         float accTime = 0;
         do
         {
+            var targetEnemyData = DataManager.Instance.GetEnemyDiceDatas.GetEnemyData(MonsterUID);
+            var firstSpawnPath = currentScene.GetMonsterPath.GetPathes[0];
+
             // spawn
-            var monster = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            monster.transform.SetParent(parent);
+            var monster = targetEnemyData.CreateMonsterInstance(parent);
+            monster.transform.position = firstSpawnPath.transform.position;
+
             yield return new WaitForSeconds(cooltimeForSpawn); //0.3초
 
             accTime += cooltimeForSpawn; // 0.0x초
@@ -44,7 +63,7 @@ public class WaveData
             {
                 break;
             }
-        } while (GameScene.CurrentScene.stateRP.Value != GameScene.State.End);
+        } while (currentScene.stateRP.Value != GameScene.State.End);
     }
 }
 

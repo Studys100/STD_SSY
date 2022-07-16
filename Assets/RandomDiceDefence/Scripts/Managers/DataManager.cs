@@ -10,6 +10,7 @@ public class DataManager : Singleton<DataManager>
     // scriptable objects
     [SerializeField]
     EnemyDiceDatas enemyDiceDatas;
+    public EnemyDiceDatas GetEnemyDiceDatas => enemyDiceDatas;
 
     [SerializeField]
     DiceDatas diceDatas;
