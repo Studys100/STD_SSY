@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDiceDatas: {fileID: 11400000, guid: 62d60224a3c20db408b41bda8a580d93, type: 2}
   diceDatas: {fileID: 11400000, guid: bcd7d53b9e1af0940980fe89b42d445a, type: 2}
+  waveDatas: {fileID: 11400000, guid: 589dcf86c20ddce498d264a3ddb4461f, type: 2}

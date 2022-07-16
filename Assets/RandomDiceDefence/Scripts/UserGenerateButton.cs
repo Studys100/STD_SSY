@@ -28,6 +28,8 @@ public class UserGenerateButton : MonoBehaviour
         // 만들어진 처음 주사위의 위치가 랜덤한 인덱스만큼 이동됨
         diceInstanced.transform.position += new Vector3(rangeFromStartX, rangeFromStartY);
 
+        GameScene.CurrentScene.TryStartGame();
+
         Debug.Log("Generate User's Dice end");
     }
 }

@@ -14,6 +14,10 @@ public class DataManager : Singleton<DataManager>
     [SerializeField]
     DiceDatas diceDatas;
 
+    [SerializeField]
+    WaveDatas waveDatas;
+    public List<WaveData> GetWaveDatas => waveDatas.waveDatas;
+
     // read only    
     Dictionary<int, EnemyDiceDatas> uidToEnemyDiceData = new Dictionary<int, EnemyDiceDatas>();
     Dictionary<int, DiceDatas> uidToPlayerDiceData = new Dictionary<int, DiceDatas>();
